@@ -32,9 +32,10 @@ episoder_intervals <- function(df, group, time = "Time") {
   by_factor <- lapply(group, as.symbol)
   mutate_call = lazyeval::interp(~c(diff(a), NA), a = as.name(time))
 
-  df %>% group_by_(.dots = by_factor ) %>%
-  mutate_(.dots = setNames(list(mutate_call), "Inter_Event_Intervals")) %>%
-  ungroup
+  df <- dplyr::group_by_(.data = df ,.dots = by_factor )
+  df <- dplyr::mutate_(.data = df, .dots = setNames(list(mutate_call), "Inter_Event_Intervals")) #%>%
+  df <- dplyr::ungroup(df)
+  return(df)
 
 # futre code controling data output format
 #  if (dataframe == TRUE) {as.data.frame(df)   #return as data frame, else return as tibble. see package tibble
