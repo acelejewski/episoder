@@ -14,7 +14,6 @@ library(lazyeval)
 library(dplyr)
 
 
-
 #' Calcualte inter-event intervals
 #'
 #' Transform a vector of event time data into inter-eventduraton interval according to specified factor. The final
