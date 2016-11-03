@@ -27,7 +27,7 @@ library(dplyr)
 # @examples an example of the code
 #' @family aggregate functions
 #' @seealso \code{\link{episoder_identify}} for finding episodes.
-
+#' @export
 episoder_intervals <- function(df, group, time = "Time") {
 
   by_factor <- lapply(group, as.symbol)
@@ -47,6 +47,7 @@ episoder_intervals <- function(df, group, time = "Time") {
 }
 
 
+
 #' Identify episodes by minimum inter-episode duration
 #'
 #'Identify episodes conforming to a minimum interepisode duration criterion
@@ -54,6 +55,7 @@ episoder_intervals <- function(df, group, time = "Time") {
 #'@param IEI a value of time less than or equal the minimum inter-event interval duration criterion for an episode
 #'@param name of data frame vector containg interepisode
 #'@return a data frame or tible of the same lengh as the input data frame.
+#'@export
 episoder_identify <- function(df, IEI, intervals = "Inter_Event_Intervals") {
   event.runs <- rle(unlist(df[ , which(names(df) %in% intervals)], use.names = FALSE) <= IEI) #rle object
 
@@ -72,7 +74,7 @@ episoder_identify <- function(df, IEI, intervals = "Inter_Event_Intervals") {
 #'    for number repeating event
 #'@param x A vector integers
 #'  #' @seealso \code{\link{sequence}} and \code{\link{seq}}
-
+#'@export
 seq_seq <- function(x) {
   (rep(seq(x), x))
 }
@@ -81,7 +83,7 @@ seq_seq <- function(x) {
 #'
 #'   sequence of repeating elmemns where x is data frame vector of episode runs. This operation is expensive with larger opperation dplyr impmentation
 # for speed
-
+#'@export
 episoder_order <- function(df,  group, episode_crit = "Episode_crit") {
   by_factor <- lapply(group, as.symbol)
   mutate_call = lazyeval::interp(~seq_seq(rle(a)[[1]]), a = as.name(episode_crit))
@@ -94,6 +96,7 @@ episoder_order <- function(df,  group, episode_crit = "Episode_crit") {
 
 
 ## episode order implementation in R base funtion. Orders of magnitude slower slower.
+#'@export
 episode.order2 <- function(x) {
   runs <- tapply(x$Exceeds, x$Session.Identifier, rle)
   lenghts.runs <- lapply(runs, (function(m) m[[1]]))
@@ -109,9 +112,8 @@ episode.order2 <- function(x) {
 #'@param group A characther vector of unique data frame vector factor combinations for each c("Session", "Subject")
 #'@param IEI A value of time less than or equal the minimum inter-event interval duration criterion for an episode
 #'@param EPE A value specifiing maximum Event
-
-
 # creates data frame of episodes paramters corresponding to a defined inter-episode interval(IEI) and minimum events per episode
+#'@export
 episoder.summarize <- function(df, group, IEI, EPE ) {
 
   # create vector of inter-event durtions
@@ -144,7 +146,7 @@ episoder.summarize <- function(df, group, IEI, EPE ) {
 
 
 #create bins
-
+#'@export
 episoder_bin<-   function(df, bins, resolution, max_time, time_units, time)  {
               cut(df$time,   seq(0, 50 * 60 * 60 *24 , 180000),
                          labels = bins)
