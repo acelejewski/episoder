@@ -1,0 +1,60 @@
+---
+title: "Using episoder"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+Beahvioual such feeding or drinking can be a descrete units of activity, or episodes. For instance, feeding or drinking occur in bursts of activity, has often The episoder package provides several funtions for rapidly extracting episode information from large, time-series event datasets according a specified inter-event interval of occurance and number of events per episodes. The the output of these funtions can than be subjected to further statsistical analsis.
+
+- Never uses retina figures
+- Has a smaller default figure size
+- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+
+## Vignette Info
+
+Noet that This example useses the tibble an extensionof the data fame , (tbl_df class;  se     https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html), but tradtional data frames are also accepted.
+
+
+
+## Styles
+
+The funtions require data  organzied in long-format format as illustrated in data file example This data contains Likcocomter recordings (recordings of indivutal licks) from 16 rats drinking sucrsoe solutions in to spereate treatment   conditons. Note that is data is orgnaized in long-form format. Two pices of information are requiured. A column of event times lics_df$time,  and column in this case of the example at a 20ms sampling resolution, the invidual level of analsys such as licksdf$subject and licksdf$esession. Any number of columns providing can be inclueded   that will berequired for further analays of the data. 
+
+Funtions for two types of operations are provided: 1) Operations that preserve the input data and provide high resolution episode information that can be than subjected to further analays and 2) operations that sumarize episode paramters where each row 
+row of the output data coresponds to a single episode as specied according to the specifed episode paramters.
+
+## Figures
+
+The figure sizes have been customised so that you can easily put two images side-by-side. 
+
+```{r, fig.show='hold'}
+plot(1:10)
+plot(10:1)
+```
+
+You can enable figure captions by `fig_caption: yes` in YAML:
+
+    output:
+      rmarkdown::html_vignette:
+        fig_caption: yes
+
+Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+
+## More Examples
+
+You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+
+```{r, echo=FALSE, results='asis'}
+knitr::kable(head(mtcars, 10))
+```
+
+Also a quote using `>`:
+
+> "He who gives up [code] safety for [code] speed deserves neither."
+([via](https://twitter.com/hadleywickham/status/504368538874703872))
