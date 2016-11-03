@@ -6,8 +6,8 @@
 #'
 #' @format A data frame with 1278038 rows and n variables:
 #' \describe{
-#'   \item{Subject} {Subject number}
-#'   \item{Session}{Session number of test}
+#'   \item{Subject} {Number of thew }
+#'   \item{Session}{Number of test}
 #'   \item{Time}{Event time recorded at a 20 ms samppling resolution}
 #'   \item{Tr}{Treatmentatment group}
 #'   ...
