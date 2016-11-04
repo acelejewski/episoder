@@ -65,12 +65,12 @@ event_intervals <- function(data, group, time = "Time") {
 #'samples_per_session = 50 *60 * 60 * 23,
 #'samples_per_bin = 50 *60 * 60, bins = c(0:22))
 #'@export
-event_bins <- function(data, time,  bins, samples_per_session, samples_per_bin)  {
+add_bins <- function(data, time,  bins, samples_per_session, samples_per_bin)  {
 
-  eventbins <- cut(data[[time]],  seq(0, samples_per_session, samples_per_bin),
+  bins_to_add <- cut(data[[time]],  seq(0, samples_per_session, samples_per_bin),
          labels = bins)
 
-  data$Bins <- eventbins
+  data$Bins <- bins_to_add
   return(data)
 }
 
