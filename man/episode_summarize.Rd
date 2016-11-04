@@ -2,20 +2,34 @@
 % Please edit documentation in R/functions.R
 \name{episode_summarize}
 \alias{episode_summarize}
-\title{Create data frame summary episode paramters}
+\title{Generate summary of episode parameters}
 \usage{
-episode_summarize(df, group, IEI, EPE, time)
+episode_summarize(data, group, time, IEI, EPE)
 }
 \arguments{
-\item{df}{A data frame}
+\item{data}{A data frame containing event times along with additional descriptive information}
 
-\item{group}{A characther vector of unique data frame vector factor combinations for each c("Session", "Subject")}
+\item{group}{A character vector of the name(s) of one or more factor combinations for}
 
-\item{IEI}{A value of time less than or equal the minimum inter-event interval duration criterion for an episode}
+\item{time}{The name of the event time column}
 
-\item{EPE}{A value specifiing maximum Event}
+\item{IEI}{A minimum inter-interval episode criterion value.}
+
+\item{EPE}{Mximum Events per Episode value}
+}
+\value{
+A data frame (tbl_data class; see
+\href{https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html}{Tibbles})
+of episodes and episode parmaters. Rows corespond to episodes.
+Episode_Events: An integer vector corresponding to the number of events per episode.
+Episode_End: An integer vector of episode end times.
+Event_Duration: Episdoe duration.
 }
 \description{
 Create data frame summary of episode paramters from event time data. Includes summary
+}
+\examples{
+data(licks_df)
+episode_summarize(licks_df, group = c("Subject", "Session"), IEI= 12, EPE = 10 ,time ="Time")
 }
 

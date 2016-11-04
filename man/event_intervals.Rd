@@ -4,10 +4,10 @@
 \alias{event_intervals}
 \title{Calculate inter-event intervals}
 \usage{
-event_intervals(df, group, time = "Time")
+event_intervals(data, group, time = "Time")
 }
 \arguments{
-\item{df}{A data frame containing event times along with additional descriptive information}
+\item{data}{A data frame containing event times along with additional descriptive information}
 
 \item{group}{A character vector of the name(s) of one or more factor combinations for
 each unit of analysis, e.g  \code{c(“Subject”, “Session”)}.}
@@ -15,8 +15,8 @@ each unit of analysis, e.g  \code{c(“Subject”, “Session”)}.}
 \item{time}{The name of the event time column}
 }
 \value{
-A data frame (tbl_df class; see
-\href{https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html}{Tibbles}
+A data frame (tbl_data class; see
+\href{https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html}{Tibbles})
 consiting of input data with new column, "Inter_Event_Intervals", appended. The last value at
 each factor level combination is NA.
 }
@@ -25,8 +25,8 @@ Transform a data frame event time column to inter-event intervals at a
 specified factor, or factor combination. The final inter-event value at each factor level is NA.
 }
 \examples{
-data(lick_df)
-event_intervals(licks_df, group = c(“Subject”, “Session”), time = "Time")
+data(lick_data)
+event_intervals(licks_data, group = c(“Subject”, “Session”), time = "Time")
 }
 \seealso{
 \code{\link{event_episodes}} for finding episodes.

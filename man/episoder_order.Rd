@@ -4,7 +4,7 @@
 \alias{episoder_order}
 \title{Number vector of repeating ellements}
 \usage{
-episoder_order(df, group, episode_crit = "Episode_crit")
+episoder_order(data, group, episode_crit = "Episode_crit")
 }
 \description{
 sequence of repeating elmemns where x is data frame vector of episode runs. This operation is expensive with larger opperation dplyr impmentation

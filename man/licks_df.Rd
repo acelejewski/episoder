@@ -3,24 +3,22 @@
 \docType{data}
 \name{licks_df}
 \alias{licks_df}
-\title{Prices of 50,000 round cut diamonds.}
-\format{A data frame with 53940 rows and 10 variables:
-\describe{
-  \item{Subject}{Number of thew}
-  \item{Session}{Number of test}
-  \item{Time}{Event time recorded at a 20 ms samppling resolution}
-  \item{Tr}{Treatmentatment group}#'
-  ...
-}}
-\source{
-\url{http://www.diamondse.info/}
-}
+\title{Lickometer data for 8 rats.}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1278038 rows and 7 columns.}
 \usage{
 licks_df
 }
 \description{
-A dataset containing the prices and other attributes of almost 54,000
-diamonds.
+Lickometer data collected from 8 rats over 2 session in 2 treatment condtions.
+}
+\details{
+\describe{
+  \item{Subject}{Subject ID}
+  \item{Session}{Session number}
+  \item{Time}{Licks recorded at a 20 ms sampling resolution}
+  \item{Treatment}{Treatment group}
+  ...
+}
 }
 \keyword{datasets}
 

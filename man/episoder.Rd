@@ -12,8 +12,9 @@ distributions. The episoder package provides several functions for obtaining int
 episode information form large, event time-series datasets.
 }
 \details{
-The episoder futnions \code{\link{event_intervals}}, \code{\link{event_episodes}},
-while \code{\link{episode_summarize}},
+The episoder funtions \code{\link{event_intervals}}, \code{\link{event_episodes}} provide highresilutoin
+while \code{\link{episode_summarize}} generates a summary of episode information according
+specified in
 }
 \section{See Also}{
 

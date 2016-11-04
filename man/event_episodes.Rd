@@ -2,23 +2,32 @@
 % Please edit documentation in R/functions.R
 \name{event_episodes}
 \alias{event_episodes}
-\title{Lable events minimum inter-episode interval criterion}
+\title{Identify events meeting an inter-interval episode criterion}
 \usage{
-event_episodes(df, IEI, intervals = "Inter_Event_Intervals")
+event_episodes(data, IEI, intervals = "Inter_Event_Intervals")
 }
 \arguments{
-\item{df}{A data frame containing inter-event intervals along with additional descriptive information}
+\item{data}{A data frame containing inter-event intervals along with additional descriptive information.}
 
-\item{IEI}{An inter-event value less than or equal to desired episode criterion}
+\item{IEI}{A minimum inter-interval episode criterion value.}
 
-\item{intervals}{the name of column containg inter-event}
+\item{intervals}{name of column containing inter-event intervals.}
 }
 \value{
-a data frame or tible of the same lengh as the input data frame along with 3 new columns
-Episode_crit: A logical vector correspondign to event runs meeting the IEI criterion
-Episode.events
+A data frame (tbl_data class; see
+\href{https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html}{Tibbles})
+consiting of input data plus 3 columns of episode information.
+Episode_Crit: A logical vector corresponding to event runs meeting the IEI criterion.
+Episode_Events: An integer vector corresponding to the number of events per episode
+Within_Episode_Order: An integer vector of the order of events within each episode
 }
 \description{
-Identify episodes conforming to a minimum interepisode duration criterion
+Identify events conforming to a minimum episode inter-event interval criterion. Enumerate and label
+sequence of events with each episode,
+}
+\examples{
+data(lick_data)
+interval_data <- event_intervals(licks_data, group = c(“Subject”, “Session”), time = "Time")
+event_episodes(interval_data, 12, intervals = "Inter_Event_Intervals")
 }
 
