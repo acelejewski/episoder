@@ -4,13 +4,19 @@
 \name{episoder}
 \alias{episoder}
 \alias{episoder-package}
-\title{episoder: A package for computating time series event data into episode}
+\title{episoder: A package for episode and event interval analysis}
 \description{
-The episoder package provides three categories of important functions:
-foo, bar and baz.
+A common approach to analyzing high-resolution behavioural event data, eg. lickometer or
+feeder recordings, is by grouping individual events into episodes  according to inter-event-interval
+distributions. The episoder package provides several functions for obtaining inter-event-interval and
+episode information form large, event time-series datasets.
 }
-\section{Foo functions}{
+\details{
+The episoder futnions \code{\link{event_intervals}}, \code{\link{event_episodes}},
+while \code{\link{episode_summarize}},
+}
+\section{See Also}{
 
-The foo functions ...
+For further infrmoanton see viggnet("episodes") for further informaiton
 }
 

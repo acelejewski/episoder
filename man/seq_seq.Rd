@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{seq_seq}
 \alias{seq_seq}
-\title{Repeat each element of of vector (vector[i]), vector[i] times}
+\title{Generate sequence of vector[i] repeated vector[i] times}
 \usage{
 seq_seq(x)
 }
@@ -11,7 +11,8 @@ seq_seq(x)
 #' @seealso \code{\link{sequence}} and \code{\link{seq}}}
 }
 \description{
-sequence for each element the value of that element times. Usefull along with wiht  \code{\link{rle}}
-   for number repeating event
+sequence considitng  for each element of vector repeated  element times.
+ Usefull along incombination with for   \code{\link{rle}}
+for number repeating event
 }
 
