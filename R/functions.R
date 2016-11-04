@@ -1,32 +1,7 @@
-#' episoder: A package for episode and event interval analysis
-#'
-#' A common approach to analyzing high-resolution behavioural event data, eg. lickometer or
-#' feeder recordings, is by grouping individual events into episodes  according to inter-event-interval
-#' distributions. The episoder package provides several functions for obtaining inter-event-interval and
-#' episode information form large, event time-series datasets.
-#'
-##' The episoder funtions \code{\link{event_intervals}}, \code{\link{event_episodes}} provide highresilutoin
-##' while \code{\link{episode_summarize}} generates a summary of episode information according
-##' specified in
-#'
-#' @section See Also:
-#' For further infrmoanton see viggnet("episodes") for further informaiton
-#'
-#' @docType package
-#' @name episoder
-#'
-#'
-
-
-library(dplyr)
-library(lazyeval)
-
-
-
 #' Calculate inter-event intervals
 #'
-#' Transform a data frame event time column to inter-event intervals at a
-#' specified factor, or factor combination. The final inter-event value at each factor level is NA.
+#' Transform event time column to inter-event intervals at a specific factor, or factor combination.
+#' The final inter-event value at each factor level is NA.
 #' @param data A data frame containing event times along with additional descriptive information
 #' @param group A character vector of the name(s) of one or more factor combinations for
 #' each unit of analysis, e.g  \code{c(“Subject”, “Session”)}.
@@ -51,9 +26,9 @@ event_intervals <- function(data, group, time = "Time") {
 
 }
 
-#'Add event time bins
+#'Add time bins
 #'
-#'add event time bins
+#'Add time bins to data frame
 #'@param data A data frame containing event times along with additional descriptive information
 #'@param time The name of the event time column
 #'@param bins A vector containg bin lables
@@ -61,9 +36,7 @@ event_intervals <- function(data, group, time = "Time") {
 #'@param samples_per_bin number of samples, or time units per bin
 #'@examples
 #'data(lick_data)
-#'event_bins(licks_df, time = "Time",
-#'samples_per_session = 50 *60 * 60 * 23,
-#'samples_per_bin = 50 *60 * 60, bins = c(0:22))
+#'add_bins(licks_df, time = "Time", samples_per_session = 50 *60 * 60 * 23, samples_per_bin = 50 *60 * 60, bins = c(0:22))
 #'@export
 add_bins <- function(data, time,  bins, samples_per_session, samples_per_bin)  {
 
@@ -130,7 +103,6 @@ seq_seq <- function(x) {
 #'
 #'   sequence of repeating elmemns where x is data frame vector of episode runs. This operation is expensive with larger opperation dplyr impmentation
 # for speed
-
 episoder_order <- function(data,  group, episode_crit = "Episode_crit") {
   by_factor <- lapply(group, as.symbol)
   mutate_call = lazyeval::interp(~seq_seq(rle(a)[[1]]), a = as.name(episode_crit))
@@ -175,21 +147,21 @@ episode_summarize <- function(data, group, time, IEI, EPE) {
   data <- event_intervals(data, group, time)
 
 
-  event.runs <- rle(data$Inter_Event_Intervals <= IEI) #rle object
+  event_runs <- rle(data$Inter_Event_Intervals <= IEI) #rle object
   #logical vector of events that macthc or edataceed inter-event cirterion (TRUE)
-  data$Episode_crit <- rep(event.runs$values, event.runs$lengths)  #Logical vector correspondign to episodes exceeding interepisde criterion == TRUE
+  data$Episode_crit <- rep(event_runs$values, event_runs$lengths)  #Logical vector correspondign to episodes exceeding interepisde criterion == TRUE
   # duration of episode edataceeds ILI
-  data$Episode_Events <- rep(event.runs$lengths, event.runs$lengths)
+  data$Episode_Events <- rep(event_runs$lengths, event_runs$lengths)
 
   # starts
-  episode.starts <- data[head(c(1, cumsum(event.runs$length) + 1), length(event.runs$length)), ]  #bout start time
-  episode.starts$Episode_End <- data$Time[tail(c(1, cumsum(event.runs$length)), length(event.runs$length))]  #bout end times
+  episode.starts <- data[head(c(1, cumsum(event_runs$length) + 1), length(event_runs$length)), ]  #bout start time
+  episode.starts$Episode_End <- data$Time[tail(c(1, cumsum(event_runs$length)), length(event_runs$length))]  #bout end times
 
   # subset episodes that meets episode criteria
   episode_data <- filter(episode.starts, Episode_Events >= EPE & Episode_crit)
 
   # calcualte episode duraton
-  episode_data$Event.duration <- episode_data$Episode_End - episode_data$Time
+  episode_data$Event_Duration <- episode_data$Episode_End - episode_data$Time
   episode_data$Episode_Crit <- NULL
   return(episode_data)
 

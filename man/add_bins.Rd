@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{add_bins}
 \alias{add_bins}
-\title{Add event time bins}
+\title{Add time bins}
 \usage{
 add_bins(data, time, bins, samples_per_session, samples_per_bin)
 }
@@ -18,12 +18,10 @@ add_bins(data, time, bins, samples_per_session, samples_per_bin)
 \item{samples_per_bin}{number of samples, or time units per bin}
 }
 \description{
-add event time bins
+Add time bins to data frame
 }
 \examples{
 data(lick_data)
-event_bins(licks_df, time = "Time",
-samples_per_session = 50 *60 * 60 * 23,
-samples_per_bin = 50 *60 * 60, bins = c(0:22))
+add_bins(licks_df, time = "Time", samples_per_session = 50 *60 * 60 * 23, samples_per_bin = 50 *60 * 60, bins = c(0:22))
 }
 

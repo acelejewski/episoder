@@ -21,8 +21,8 @@ consiting of input data with new column, "Inter_Event_Intervals", appended. The 
 each factor level combination is NA.
 }
 \description{
-Transform a data frame event time column to inter-event intervals at a
-specified factor, or factor combination. The final inter-event value at each factor level is NA.
+Transform event time column to inter-event intervals at a specific factor, or factor combination.
+The final inter-event value at each factor level is NA.
 }
 \examples{
 data(lick_data)
