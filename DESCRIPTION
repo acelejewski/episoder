@@ -1,7 +1,7 @@
 Package: episoder
 Type: Package
 Title: Group time-series event data into episodes
-Version: 0.0.0.9000
+Version: 0.0.1.9000
 Author: person("Adam", "Celejewski", email = "a.celejewski@gmail.com",
     role = c("aut", "cre"))
 Maintainer: Adam Celejewski <a.celejewski@gmail.com>

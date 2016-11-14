@@ -4,18 +4,19 @@
 \alias{episode_summarize}
 \title{Generate summary of episode parameters}
 \usage{
-episode_summarize(data, group, time, IEI, EPE)
+episode_summarize(data, group, IEI, EPE, intervals = "Inter_Event_Intervals",
+  time = "Time")
 }
 \arguments{
 \item{data}{A data frame containing event times along with additional descriptive information}
 
 \item{group}{A character vector of the name(s) of one or more factor combinations for}
 
-\item{time}{The name of the event time column}
-
 \item{IEI}{A minimum inter-interval episode criterion value.}
 
 \item{EPE}{Mximum Events per Episode value}
+
+\item{time}{The name of the event time column}
 }
 \value{
 A data frame (tbl_data class; see
@@ -29,7 +30,7 @@ Event_Duration: Episdoe duration.
 Create data frame summary of episode paramters from event time data. Includes summary
 }
 \examples{
-data(licks_df)
-episode_summarize(licks_df, group = c("Subject", "Session"), IEI= 12, EPE = 10 ,time ="Time")
+data(lickometer)
+episode_summarize(lickometer, group = c("Subject", "Session"), IEI= 12, EPE = 10 ,time ="Time")
 }
 

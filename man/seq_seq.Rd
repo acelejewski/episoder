@@ -7,12 +7,14 @@
 seq_seq(x)
 }
 \arguments{
-\item{x}{A vector integers
-#' @seealso \code{\link{sequence}} and \code{\link{seq}}}
+\item{x}{A vector integers}
 }
 \description{
 sequence considitng  for each element of vector repeated  element times.
- Usefull along incombination with for   \code{\link{rle}}
+Usefull along incombination with for   \code{\link{rle}}
 for number repeating event
+}
+\seealso{
+\code{\link{sequence}} and \code{\link{seq}}
 }
 

@@ -2,12 +2,12 @@
 % Please edit documentation in R/functions.R
 \name{event_intervals}
 \alias{event_intervals}
-\title{Calculate inter-event intervals}
+\title{Find inter-event intervals}
 \usage{
 event_intervals(data, group, time = "Time")
 }
 \arguments{
-\item{data}{A data frame containing event times along with additional descriptive information}
+\item{data}{A data frame containing event times along with optional descriptive information}
 
 \item{group}{A character vector of the name(s) of one or more factor combinations for
 each unit of analysis, e.g  \code{c(“Subject”, “Session”)}.}
@@ -21,12 +21,12 @@ consiting of input data with new column, "Inter_Event_Intervals", appended. The 
 each factor level combination is NA.
 }
 \description{
-Transform event time column to inter-event intervals at a specific factor, or factor combination.
+Transform a vector of event times to inter-event intervals at a specific factor, or factor combination.
 The final inter-event value at each factor level is NA.
 }
 \examples{
-data(lick_data)
-event_intervals(licks_data, group = c(“Subject”, “Session”), time = "Time")
+data(lickometer)
+event_intervals(lickometer, group = c(“Subject”, “Session”), time = "Time")
 }
 \seealso{
 \code{\link{event_episodes}} for finding episodes.

@@ -9,4 +9,4 @@
 #'   \item{Treatment}{Treatment group}
 #'   ...
 #' }
-"licks_df"
+"lickometer"

@@ -4,24 +4,29 @@
 \alias{add_bins}
 \title{Add time bins}
 \usage{
-add_bins(data, time, bins, samples_per_session, samples_per_bin)
+add_bins(data, time, samples_per_session, samples_per_bin, bin_labels,
+  bin_name = "Bins")
 }
 \arguments{
-\item{data}{A data frame containing event times along with additional descriptive information}
+\item{data}{A data frame containing a vector event times along with optional descriptive information}
 
-\item{time}{The name of the event time column}
-
-\item{bins}{A vector containg bin lables}
+\item{time}{The name of the event time vector}
 
 \item{samples_per_session}{the maximum time units units, or samples in a session}
 
-\item{samples_per_bin}{number of samples, or time units per bin}
+\item{samples_per_bin}{number of samples, or time units per bin. Must be a dividend  of samples_per_session}
+
+\item{bin_name}{Lable for bin vecotr. Default is "Bins"}
+
+\item{bins}{A vector containg bin lables. The the lengh of the vector must corrspond to the quotient of
+samples_per_bin into samples_per_session. If the argument bin lables are from 0:number of bins are included.}
 }
 \description{
-Add time bins to data frame
+Add time bins to data frame from a vector of event times
 }
 \examples{
-data(lick_data)
-add_bins(licks_df, time = "Time", samples_per_session = 50 *60 * 60 * 23, samples_per_bin = 50 *60 * 60, bins = c(0:22))
+data(lickometer)
+add_bins(lickometer, time = "Time", samples_per_session = 50 *60 * 60 * 23, samples_per_bin = 50 *60 * 60,
+bin_labels = 0:22)
 }
 
