@@ -3,6 +3,7 @@
 export(add_bins)
 export(episode_lable)
 export(episode_summarize)
+export(episode_summarize2)
 export(event_intervals)
+export(renumber)
 export(run_sequence)
-export(seq_seq)

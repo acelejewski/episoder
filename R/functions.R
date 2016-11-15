@@ -114,7 +114,6 @@ episode_lable <- function(data, group, EPE, IEI, intervals = "Inter_Event_Interv
 
     data <- data %>% group_by_(.dots = by_factor ) %>%
       mutate_(.dots = setNames(list(mutate_call), "Episode_Order_")) %>%
-      filter(Episode_Crit == TRUE & Episode_Events >= EPE ) %>%
       ungroup
 
 
@@ -132,9 +131,6 @@ episode_lable <- function(data, group, EPE, IEI, intervals = "Inter_Event_Interv
     return(data)}
 }
 
-#data(lickometer)
-#eps <- event_intervals(lickometer, c("Subject", "Session"))
-#eps <- episode_lable(eps, IEI = 12, EPE = 10, group = c("Subject", "Session"), intervals = "Inter_Event_Intervals")
 
 
 
@@ -240,4 +236,50 @@ episode_summarize <- function(data, group,  IEI, EPE, intervals = "Inter_Event_I
   return(episode_data)
 
 }
+
+
+#intervals = "Inter_Event_Intervals"
+#group = c("Subject", "Session")
+#eps <- event_intervals(lickometer, group = c("Subject", "Session") )
+#episode_summarize(eps, group = c("Subject", "Session"), intervals = "Inter_Event_Intervals",IEI = 12,EPE = 10, time = "Time" )
+
+
+
+#' Generate summary of episode parameters (Secondary)
+#'
+#'Create data frame summary of episode paramters from labled
+#'@param data A data frame containing event times along with additional descriptive information
+#'@param group A character vector of the name(s) of one or more factor combinations for
+#'@param summarize_by A vector labling events to summarize
+#'@param time Name of event time vector
+#'@return A data frame (tbl_data class; see
+#' \href{https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html}{Tibbles})
+#'of episodes and episode parmaters. Rows corespond to episodes.
+#'Episode_Events: An integer vector corresponding to the number of events per episode.
+#'Episode_End: An integer vector of episode end times.
+#'Event_Duration: Episdoe duration.
+# creates data frame of episodes paramters corresponding to a defined inter-episode interval(IEI) and minimum events per episode
+#'@examples
+#'data(lickometer)
+#'episode_summarize(lickometer, group = c("Subject", "Session"), IEI= 12, EPE = 10 ,time ="Time")
+#'@export
+episode_summarize2 <- function(data, group, summarize_by, time = "Time") {
+
+  event_runs <- rle(unlist(data[ , which(names(data) %in% summarize_by)], use.names = FALSE))
+  data$Episode_Events <- rep(event_runs$lengths, event_runs$lengths)
+
+
+  episode_starts <- data[head(c(1, cumsum (event_runs$length) + 1), length(event_runs$length)), ]  #bout start time
+  Episode_End <- data[[time]]
+  episode_starts$Episode_End <-  Episode_End [tail(c(1, cumsum(event_runs$length)), length(event_runs$length))]  #bout end times
+
+  episode_data <-   episode_starts
+  episode_data$Event_Duration <- episode_data$Episode_End - episode_data$Time
+  episode_data$Episode_Crit <- NULL
+  return(episode_data)
+
+}
+
+
+
 
