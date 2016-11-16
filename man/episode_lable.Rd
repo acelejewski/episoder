@@ -2,19 +2,19 @@
 % Please edit documentation in R/functions.R
 \name{episode_lable}
 \alias{episode_lable}
-\title{Identify events meeting an inter-interval episode criterion}
+\title{Identify events meeting episode criteria}
 \usage{
 episode_lable(data, group, EPE, IEI, intervals = "Inter_Event_Intervals",
-  filter = TRUE)
+  tag = "Episode")
 }
 \arguments{
 \item{data}{A data frame containing inter-event intervals along with additional descriptive information.}
 
-\item{IEI}{A minimum inter-interval episode criterion value.}
+\item{IEI}{A numerical minimum inter-interval episode criterion value.}
 
-\item{intervals}{name of column containing inter-event intervals.}
+\item{intervals}{characther string of inter-event interval vector}
 
-\item{filter}{fillters observations that do not correspond to episode criterion}
+\item{tag}{a characther string identifying episode type. "Episode" is default}
 }
 \value{
 A data frame (tbl_data class; see
@@ -25,7 +25,7 @@ Episode_Events: An integer vector corresponding to the number of events per epis
 Within_Episode_Order: An integer vector of the order of events within each episode
 }
 \description{
-Identify events conforming to a minimum episode inter-event interval criterion. Enumerate and label
+Identify events conforming to a minimum episode inter-event interval and event per episode critera Enumerate and label
 sequence of events with each episode,
 }
 \examples{

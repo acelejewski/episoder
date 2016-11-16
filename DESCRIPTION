@@ -1,16 +1,15 @@
 Package: episoder
 Type: Package
 Title: Group time-series event data into episodes
-Version: 0.0.1.9000
+Version: 0.0.2.9000
 Author: person("Adam", "Celejewski", email = "a.celejewski@gmail.com",
     role = c("aut", "cre"))
 Maintainer: Adam Celejewski <a.celejewski@gmail.com>
 Description: Behavioual output can be groupedin to descrete units of activity,
-  or episodes. Episodes are sometimes defined according to maximum inter-event
-  duration and a minium number events.The episoder package provides funtions
-  for grouping time-stamped events accoriding these basic criteria. The episoder
+  or episodes. The episoder package provides funtions
+  for grouping time-stamped events according to inter-event inteverals. The 
   package was created for analyzing large volumes of lickometer and feeding data
-  in mind but it may be usefull for other biological or non-bilogical data.
+  in mind but may be usefull for other biological or non-bilogical data.
 License: GPL-3
 LazyData: TRUE
 Imports:
