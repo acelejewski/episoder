@@ -7,28 +7,28 @@
 event_intervals(data, group, time = "Time")
 }
 \arguments{
-\item{data}{A data frame containing event times along with optional descriptive information}
+\item{data}{A data frame containing event times along with optional descriptive information.}
 
-\item{group}{A character vector of the name(s) of one or more factor combinations for
-each unit of analysis, e.g  \code{c(“Subject”, “Session”)}.}
+\item{group}{A character vector containing the name(s) of one or more grouping factor combinations.
+e.g.  \code{c(“Subject”, “Session”)}.}
 
-\item{time}{The name of the event time column}
+\item{time}{The name of the event time vector (as a characther string).}
 }
 \value{
 A data frame (tbl_data class; see
-\href{https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html}{Tibbles})
-consiting of input data with new column, "Inter_Event_Intervals", appended. The last value at
-each factor level combination is NA.
+  \href{https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html}{Tibbles})
+  consisting of input data with, "Inter_Event_Intervals" vector appended. The last inter-event
+  interval value at each factor level combination is NA padded.
 }
 \description{
-Transform a vector of event times to inter-event intervals at a specific factor, or factor combination.
-The final inter-event value at each factor level is NA.
+Transform a vector of event times to inter-event intervals grouped by a factor, or combination of factors.
+The final inter-event interval value at each factor level is NA padded.
 }
 \examples{
 data(lickometer)
 event_intervals(lickometer, group = c(“Subject”, “Session”), time = "Time")
 }
 \seealso{
-\code{\link{event_episodes}} for finding episodes.
+\code{\link{episode_label}} and  \code{\link{episode_summarize}}.
 }
 

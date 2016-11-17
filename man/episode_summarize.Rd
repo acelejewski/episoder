@@ -4,30 +4,37 @@
 \alias{episode_summarize}
 \title{Generate summary of episode parameters}
 \usage{
-episode_summarize(data, group, IEI, EPE, intervals = "Inter_Event_Intervals",
-  time = "Time")
+episode_summarize(data, group, IEI, EPE, time = "Time")
 }
 \arguments{
-\item{data}{A data frame containing event times along with additional descriptive information}
+\item{data}{A data frame containing event and inter-event interval times along with optional
+descriptive information.}
 
-\item{group}{A character vector of the name(s) of one or more factor combinations for}
+\item{group}{A character vector containing the name(s) of one or more grouping factor combinations.
+e.g.  \code{c(“Subject”, “Session”)}.}
 
-\item{IEI}{A minimum inter-interval episode criterion value.}
+\item{IEI}{A minimum Inter-Event Inteval criterion value.}
 
-\item{EPE}{Mximum Events per Episode value}
+\item{EPE}{A minimum Events Per Episode criterion value.}
 
-\item{time}{The name of the event time column}
+\item{time}{The name of the event time vector (as a characther string).}
 }
 \value{
 A data frame (tbl_data class; see
-\href{https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html}{Tibbles})
-of episodes and episode parmaters. Rows corespond to episodes.
-Episode_Events: An integer vector corresponding to the number of events per episode.
-Episode_End: An integer vector of episode end times.
-Event_Duration: Episdoe duration.
+ \href{https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html}{Tibbles})
+ of pisode parmaters. Each row corresponds to an episodes as defined by IEI and EPE episode criteria.
+Addtional vectors contain the following episode informaiton:
+\itemize{
+\item Episode_Events: The number of events per episode.
+\item Episode Starts: Episode start time.
+\item Episode_End: Episode end time.
+\item Event_Duration: Episode duration
+\item Event_Duration: Episode rate.
+}
 }
 \description{
-Create data frame summary of episode paramters from event time data. Includes summary
+Generate a summary of episode paramters from event time data according
+to minimum inter-event interval duration and minimum number of events per episode criteria.
 }
 \examples{
 data(lickometer)

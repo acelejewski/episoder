@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{episode_summarize2}
 \alias{episode_summarize2}
-\title{Generate summary of episode parameters (Secondary)}
+\title{Generate summary of episode parameters (for development)}
 \usage{
 episode_summarize2(data, group, summarize_by, time = "Time")
 }
@@ -24,7 +24,7 @@ Episode_End: An integer vector of episode end times.
 Event_Duration: Episdoe duration.
 }
 \description{
-Create data frame summary of episode paramters from labled
+Create data frame summary of episode paramters from labled data.
 }
 \examples{
 data(lickometer)

@@ -2,23 +2,22 @@
 % Please edit documentation in R/functions.R
 \name{run_sequence}
 \alias{run_sequence}
-\title{Order of runs of equal values in a vector}
+\title{Sequence of equal value runs in a vector}
 \usage{
 run_sequence(x)
 }
 \arguments{
-\item{x}{A vector containg runs of equal values}
+\item{x}{A vector containing runs of equal values.}
 }
 \value{
-a vector equal in length to x, consiting an incrementing
-integers corespoidng to each run of equal values in x
+A vector, equal in length to x, consiting of intergers incrementing for each run
+of equal values in x.
 }
 \description{
-Generate ordered sequnce of intergers for each run of equal values
-in a vector
-for number repeating event
+Generate an ordered sequence of integers corresponding to each run of equal values
+in a vector.
 }
 \seealso{
-\code{\link{rle}}
+\code{\link{rle}},  \code{\link{renumber}}
 }
 
