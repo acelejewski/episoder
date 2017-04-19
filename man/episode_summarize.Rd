@@ -4,32 +4,34 @@
 \alias{episode_summarize}
 \title{Generate summary of episode parameters}
 \usage{
-episode_summarize(data, group, IEI, EPE, time = "Time")
+episode_summarize(data, group, IEI, EPE, time = "Time", intervals)
 }
 \arguments{
 \item{data}{A data frame containing event and inter-event interval times along with optional
 descriptive information.}
 
 \item{group}{A character vector containing the name(s) of one or more grouping factor combinations.
-e.g.  \code{c(“Subject”, “Session”)}.}
+e.g.  \code{c("Subject", "Session")}.}
 
-\item{IEI}{A minimum Inter-Event Inteval criterion value.}
+\item{IEI}{A minimum Inter-Event Interval criterion value.}
 
 \item{EPE}{A minimum Events Per Episode criterion value.}
 
 \item{time}{The name of the event time vector (as a characther string).}
+
+\item{intervals}{The name of the event time vector (as a characther string). If argument is not
+included, intervals will be calulated from event time vector}
 }
 \value{
 A data frame (tbl_data class; see
- \href{https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html}{Tibbles})
- of pisode parmaters. Each row corresponds to an episodes as defined by IEI and EPE episode criteria.
-Addtional vectors contain the following episode informaiton:
+\href{https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html}{Tibbles})
+consisting of input data and 4 columns of episode information:
 \itemize{
-\item Episode_Events: The number of events per episode.
-\item Episode Starts: Episode start time.
-\item Episode_End: Episode end time.
-\item Event_Duration: Episode duration
-\item Event_Duration: Episode rate.
+\item Episode_Interval_Criterion: A logical vector corresponding to inter_event_interval runs meeting
+the IEI criterion.
+\item Episode_Events: An integer vector containing to the number of events within episode.
+\item Within_Episode_Order: An integer vector containing the order of events within each episode.
+\item Episode_Order: An integer vector containing the order of episodes within each factor combintation
 }
 }
 \description{
@@ -38,6 +40,9 @@ to minimum inter-event interval duration and minimum number of events per episod
 }
 \examples{
 data(lickometer)
-episode_summarize(lickometer, group = c("Subject", "Session"), IEI= 12, EPE = 10 ,time ="Time")
+interval_data <- event_intervals(lickometer, group = c("Subject”, “Session"), time = "Time")
+episode_label(interval_data, IEI = 12, , intervals = "Inter_Event_Intervals", tag = "Episode")
 }
-
+\seealso{
+\code{\link{episode_summarize}}.
+}

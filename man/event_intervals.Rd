@@ -2,7 +2,8 @@
 % Please edit documentation in R/functions.R
 \name{event_intervals}
 \alias{event_intervals}
-\title{Find inter-event intervals}
+\title{Transform a vector of event times to inter-event intervals grouped by a factor, or combination of factors.
+The final inter-event interval value at each factor level is NA padded.}
 \usage{
 event_intervals(data, group, time = "Time")
 }
@@ -31,4 +32,3 @@ event_intervals(lickometer, group = c(“Subject”, “Session”), time = "Tim
 \seealso{
 \code{\link{episode_label}} and  \code{\link{episode_summarize}}.
 }
-

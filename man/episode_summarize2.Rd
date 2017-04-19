@@ -28,6 +28,5 @@ Create data frame summary of episode paramters from labled data.
 }
 \examples{
 data(lickometer)
-episode_summarize(lickometer, group = c("Subject", "Session"), IEI= 12, EPE = 10 ,time ="Time")
+episode_summarize(lickometer, group = c("Subject", "Session"), summarize_by, time ="Time")
 }
-

@@ -30,4 +30,3 @@ Squentially number runs of equal values in a vector within a data frame
 data(lickometer)
 episode_summarize(lickometer, group = c("Subject", "Session"), IEI= 12, EPE = 10 ,time ="Time")
 }
-

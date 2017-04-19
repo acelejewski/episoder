@@ -20,4 +20,3 @@ in a vector.
 \seealso{
 \code{\link{rle}},  \code{\link{renumber}}
 }
-

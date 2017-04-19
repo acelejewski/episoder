@@ -1,6 +1,6 @@
 ---
-title: "Using episoder"
-author: "Vignette Author"
+title: "identifying episodes episoder"
+author: "Adam Celejewski"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -10,24 +10,28 @@ vignette: >
 ---
 
 
-Beahvioual such feeding or drinking can be a descrete units of activity, or episodes. For instance, feeding or drinking occur in bursts of activity, has often The episoder package provides several funtions for rapidly extracting episode information from large, time-series event datasets according a specified inter-event interval of occurance and number of events per episodes. The the output of these funtions can than be subjected to further statsistical analsis.
+Behavioural data such feeding or drinking can be broken down into discrete units of activity, or episodes. A common starting point for the analysis of episode data involves the examination of the inter-event interval information.
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+The episoder package provides several functions for to aid in the extraction of relevant episode information form time-series event datasets according a specified inter-event interval of occurrence and/or the number of events per episodes. The the output of these functions can than be subjected to further analysis.
+
 
 ## Vignette Info
 
-Noet that This example useses the tibble an extensionof the data fame , (tbl_df class;  se     https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html), but tradtional data frames are also accepted.
+Note that this example useses the tibble an extension of the datafame , (tbl_df class;  see https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html), but tradtional data frames are also accepted. 
 
 
 
-## Styles
+## Data input
 
-The funtions require data  organzied in long-format format as illustrated in data file example This data contains Likcocomter recordings (recordings of indivutal licks) from 16 rats drinking sucrsoe solutions in to spereate treatment   conditons. Note that is data is orgnaized in long-form format. Two pices of information are requiured. A column of event times lics_df$time,  and column in this case of the example at a 20ms sampling resolution, the invidual level of analsys such as licksdf$subject and licksdf$esession. Any number of columns providing can be inclueded   that will berequired for further analays of the data. 
+The funtions require data to organzied in long-format format as illustrated in data file example. This data contains Lickometer recordings (recordings of invidual licks) from 16 rats drinking sucrsoe solutions in two spereate treatment conditons. Two pices of information are requiured. A column of event times likcs_df time,  and column in this case of the example at a 20ms sampling resolution, the invidual level of analsys such as licksdf subject and licksdf$esession. Any number of columns providing can be inclueded  that will berequired for further analays of the data. 
 
-Funtions for two types of operations are provided: 1) Operations that preserve the input data and provide high resolution episode information that can be than subjected to further analays and 2) operations that sumarize episode paramters where each row 
-row of the output data coresponds to a single episode as specied according to the specifed episode paramters.
+
+
+##Identifying 
+```{r, 'event time'}
+data("lickometer")
+
+```
 
 ## Figures
 

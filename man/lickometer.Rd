@@ -21,4 +21,3 @@ Lickometer data collected from 8 rats over 2 session in 2 treatment condtions.
 }
 }
 \keyword{datasets}
-

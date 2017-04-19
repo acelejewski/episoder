@@ -2,6 +2,7 @@
 
 export(add_bins)
 export(episode_label)
+export(episode_label_base)
 export(episode_summarize)
 export(episode_summarize2)
 export(event_intervals)

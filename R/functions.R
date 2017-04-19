@@ -1,5 +1,3 @@
-#' Find inter-event intervals
-#'
 #' Transform a vector of event times to inter-event intervals grouped by a factor, or combination of factors.
 #' The final inter-event interval value at each factor level is NA padded.
 #' @param data A data frame containing event times along with optional descriptive information.
@@ -39,17 +37,16 @@ event_intervals <- function(data, group, time = "Time") {
 
 #'Add time bins
 #'
-#'Add time bins to data frame containging a vector of event times.
-#'@param data A data frame containing event times along with optional descriptive information.
-#'@param time The name of the event time vector (as a characther string).
+#'Add a binning vector for event-time data.
+#'@param data A data frame containing a vector of event-times along plus optional descriptive information.
+#'@param time The name of the event-time vector (as a character string).
 #'@param samples_per_session The total number of samples, or maximum time unit number of a session.
 #'@param samples_per_bin The number of samples, or time units per bin. Must be a dividend of
 #'  samples_per_session.
-#'@param bin_labels A vector containg bin labels. The the lengh of the vector must corrspond
-#'  to the quotient of
-#'@param samples_per_bin into samples_per_session. If the argument is omitted,
-#'  labels 0:(number of bins) #'  are included.
-#'@param bin_name Name of time bin vector. Default name is "Bins"
+#'@param bin_labels A vector containing bin labels. Length of the vector must corrospond
+#'  to the number of bins. If missing, bin labels are added automatically (0:number of bins).
+#'@param samples_per_bin The number of samples per bin. Must be a dividend of samples_per_session.
+#'@param bin_name Name of binning vector. Default name is "Bins"
 #'@examples
 #'data(lickometer)
 #'add_bins(lickometer, time = "Time", samples_per_session = 50 *60 * 60 * 23, samples_per_bin = 50 *60 * 60,
@@ -61,6 +58,7 @@ add_bins <- function(data, time,  samples_per_session, samples_per_bin, bin_labe
     bin_labels <- (samples_per_session/samples_per_bin) - 1
     bin_labels <- 0:bin_labels
   }
+
   bins_to_add <- cut(data[[time]],  seq(0, samples_per_session, samples_per_bin),
          labels = bin_labels)
    data[, bin_name] <-  bins_to_add
@@ -69,7 +67,56 @@ add_bins <- function(data, time,  samples_per_session, samples_per_bin, bin_labe
 
 
 
-#' Label events meeting episode criteria
+#'Label events meeting episode criteria
+#'
+#'Label events conforming to a specifed inter-event intervals, the number of
+#'events per episode. Lable the order of both events and episodes…
+#'@param data A data frame containing event times along with optional descriptive information.
+#'@param IEI A minimum inter-event interval criterion value.
+#'@param group A character vector containing the name(s) of one or more grouping factor combinations.
+#'  e.g.  \code{c("Subject", "Session")}.
+#'@param intervals The name of the inter-event interval vector (as a character string).
+#'@param tag A character string identifying episode type. "Episode" the is default.
+#'@return A data frame (tbl_data class; see
+#'\href{https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html}{Tibbles})
+#' consisting of input data and 4 columns of episode information:
+#'\itemize{
+#'\item Episode_Interval_Criterion: A logical vector corresponding to inter_event_interval runs meeting
+#'the IEI criterion.
+#'\item Episode_Events: An integer vector containing to the number of events within episode.
+#'\item Within_Episode_Order: An integer vector containing the order of events within each episode.
+#'\item Episode_Order: An integer vector containing the order of episodes within each factor combintation
+#'}
+#'@seealso \code{\link{episode_summarize}}.
+#'@examples
+#'data(lickometer)
+#'interval_data <- event_intervals(lickometer, group = c("Subject”, “Session"), time = "Time")
+#'episode_label(interval_data, IEI = 12, , intervals = "Inter_Event_Intervals", tag = "Episode")
+#'@export
+episode_label <- function(data, group, IEI, intervals = "Inter_Event_Intervals", tag = "Episode")  {
+
+  by_factor <- lapply(group, as.symbol)
+
+  event_runs <- rle(data[[intervals]] <= IEI)
+
+
+  data[paste(tag, "_Interval_Criterion", sep = "")]  <- rep(event_runs$values, event_runs$lengths)
+  data[paste(tag, "_Events", sep = "")] <- rep(event_runs$lengths, event_runs$lengths)
+  data[paste("Within_", tag, "_Order", sep = "")] <- sequence(event_runs$lengths)
+
+  mutate_call = lazyeval::interp(~run_sequence(x), x = as.name(paste(tag, "_Interval_Criterion", sep = "")))
+
+  data <- data %>% group_by_(.dots = by_factor ) %>%
+      mutate_(.dots = setNames(list(mutate_call), paste(tag, "_Order", sep = ""))) %>%
+      ungroup
+
+  return(data)
+}
+
+
+
+
+#' Label events meeting episode criteria with base
 #'
 #'Label events conforming to a minimum episode inter-event interval, the number of
 #'events per episode, the order of events and episodes
@@ -95,21 +142,13 @@ add_bins <- function(data, time,  samples_per_session, samples_per_bin, bin_labe
 #'interval_data <- event_intervals(lickometer, group = c("Subject”, “Session"), time = "Time")
 #'episode_label(interval_data, IEI = 12, , intervals = "Inter_Event_Intervals", tag = "Episode")
 #'@export
-episode_label <- function(data, group, EPE, IEI, intervals = "Inter_Event_Intervals", tag = "Episode")  {
+episode_label_base <- function(data, IEI, intervals = "Inter_Event_Intervals", tag = "Episode")  {
 
-  by_factor <- lapply(group, as.symbol)
-
-  event_runs <- rle(unlist(data[ , which(names(data) %in% intervals)], use.names = FALSE) <= IEI)
+  event_runs <- rle(data[[intervals]] <= IEI)
 
   data[paste(tag, "_Interval_Criterion", sep = "")]  <- rep(event_runs$values, event_runs$lengths)
   data[paste(tag, "_Events", sep = "")] <- rep(event_runs$lengths, event_runs$lengths)
   data[paste("Within_", tag, "_Order", sep = "")] <- sequence(event_runs$lengths)
-
-  mutate_call = lazyeval::interp(~run_sequence(x), x = as.name(paste(tag, "_Interval_Criterion", sep = "")))
-
-  data <- data %>% group_by_(.dots = by_factor ) %>%
-      mutate_(.dots = setNames(list(mutate_call), paste(tag, "_Order", sep = ""))) %>%
-      ungroup
 
   return(data)
 }
@@ -126,6 +165,11 @@ episode_label <- function(data, group, EPE, IEI, intervals = "Inter_Event_Interv
 #'@seealso \code{\link{rle}},  \code{\link{renumber}}
 #'@export
 run_sequence <- function(x){
+
+  if (class(x) == "factor") {
+    x <- as.character(x)
+  }
+
   run_lengths <- rle(x)[[1]]
   rep(seq(run_lengths), run_lengths)
 }
@@ -150,33 +194,44 @@ run_sequence <- function(x){
 #'@param data A data frame containing event and inter-event interval times along with optional
 #' descriptive information.
 #'@param group A character vector containing the name(s) of one or more grouping factor combinations.
-#'   e.g.  \code{c(“Subject”, “Session”)}.
-#'@param IEI A minimum Inter-Event Inteval criterion value.
+#'   e.g.  \code{c("Subject", "Session")}.
+#'@param IEI A minimum Inter-Event Interval criterion value.
 #'@param EPE A minimum Events Per Episode criterion value.
 #'@param time The name of the event time vector (as a characther string).
+#'@param intervals The name of the event time vector (as a characther string). If argument is not
+#'included, intervals will be calulated from event time vector
 #'@return A data frame (tbl_data class; see
-#'  \href{https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html}{Tibbles})
-#'  of pisode parmaters. Each row corresponds to an episodes as defined by IEI and EPE episode criteria.
-#' Addtional vectors contain the following episode informaiton:
+#'\href{https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html}{Tibbles})
+#' consisting of input data and 4 columns of episode information:
 #'\itemize{
-#'\item Episode_Events: The number of events per episode.
-#'\item Episode Starts: Episode start time.
-#'\item Episode_End: Episode end time.
-#'\item Event_Duration: Episode duration
-#'\item Event_Duration: Episode rate.
+#'\item Episode_Interval_Criterion: A logical vector corresponding to inter_event_interval runs meeting
+#'the IEI criterion.
+#'\item Episode_Events: An integer vector containing to the number of events within episode.
+#'\item Within_Episode_Order: An integer vector containing the order of events within each episode.
+#'\item Episode_Order: An integer vector containing the order of episodes within each factor combintation
 #'}
+#'@seealso \code{\link{episode_summarize}}.
 #'@examples
 #'data(lickometer)
-#'episode_summarize(lickometer, group = c("Subject", "Session"), IEI= 12, EPE = 10 ,time ="Time")
+#'interval_data <- event_intervals(lickometer, group = c("Subject”, “Session"), time = "Time")
+#'episode_label(interval_data, IEI = 12, , intervals = "Inter_Event_Intervals", tag = "Episode")
 #'@export
-episode_summarize <- function(data, group,  IEI, EPE, time = "Time") {
+episode_summarize <- function(data, group,  IEI, EPE, time = "Time", intervals) {
 
-  data <- event_intervals(data = data, group = group, time = time)
 
-  event_runs <- rle(data$Inter_Event_Intervals <= IEI)
+  if (missing(intervals)) {
+    data <- event_intervals(data = data, group = group, time = time)
+    intervals <- "Inter_Event_Intervals"
+    }
+
+
+  event_runs <- rle(data[[intervals]] <= IEI)
 
   data$Episode_Crit <- rep(event_runs$values, event_runs$lengths)
   data$Episode_Events <- rep(event_runs$lengths, event_runs$lengths)
+
+
+
   data$Episode_Start <- data[[time]]
 
   episode_starts <- data[head(c(1, cumsum (event_runs$length) + 1), length(event_runs$length)), ]  #bout start time
@@ -212,11 +267,15 @@ episode_summarize <- function(data, group,  IEI, EPE, time = "Time") {
 # creates data frame of episodes paramters corresponding to a defined inter-episode interval(IEI) and minimum events per episode
 #'@examples
 #'data(lickometer)
-#'episode_summarize(lickometer, group = c("Subject", "Session"), IEI= 12, EPE = 10 ,time ="Time")
+#'episode_summarize(lickometer, group = c("Subject", "Session"), summarize_by, time ="Time")
 #'@export
 episode_summarize2 <- function(data, group, summarize_by, time = "Time") {
 
-  event_runs <- rle(unlist(data[ , which(names(data) %in% summarize_by)], use.names = FALSE))
+
+  data <- event_intervals(data = data, group = group, time = time)
+
+  event_runs <- rle(data[[summarize_by]])
+
   data$Episode_Events <- rep(event_runs$lengths, event_runs$lengths)
 
 
@@ -264,7 +323,7 @@ renumber <- function(data, group, name_in, name_out) {
     x <-  unlist(x[ , name_out], use.names = FALSE)
 
     data[, name_in] <-   x
-    names(data)[which(names(eps) == name_in) ] <- name_out
+    names(data)[which(names(data) == name_in) ] <- name_out
 
     return(data)
 }
