@@ -11,13 +11,13 @@ episode_label(data, group, IEI, intervals = "Inter_Event_Intervals",
 \item{data}{A data frame containing event times along with optional descriptive information.}
 
 \item{group}{A character vector containing the name(s) of one or more grouping factor combinations.
-e.g.  \code{c("Subject", "Session")}.}
+e.g. \code{c("Subject", "Session")}.}
 
 \item{IEI}{A minimum inter-event interval criterion value.}
 
-\item{intervals}{The name of the inter-event interval vector (as a character string).}
+\item{intervals}{The name of the inter-event interval vector}
 
-\item{tag}{A character string identifying episode type. "Episode" the is default.}
+\item{tag}{A string identifying episode type. "Episode" is the is default.}
 }
 \value{
 A data frame (tbl_data class; see
@@ -28,17 +28,12 @@ consisting of input data and 4 columns of episode information:
 the IEI criterion.
 \item Episode_Events: An integer vector containing to the number of events within episode.
 \item Within_Episode_Order: An integer vector containing the order of events within each episode.
-\item Episode_Order: An integer vector containing the order of episodes within each factor combintation
+\item Episode_Order: An integer vector containing the order of episodes within each factor combination
 }
 }
 \description{
-Label events conforming to a specifed inter-event intervals, the number of
-events per episode. Lable the order of both events and episodes…
-}
-\examples{
-data(lickometer)
-interval_data <- event_intervals(lickometer, group = c("Subject”, “Session"), time = "Time")
-episode_label(interval_data, IEI = 12, , intervals = "Inter_Event_Intervals", tag = "Episode")
+Identify events conforming to a specified inter-event intervals, the number of
+events per episode. Provide order of both events and episodes.
 }
 \seealso{
 \code{\link{episode_summarize}}.

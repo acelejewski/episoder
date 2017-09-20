@@ -5,11 +5,10 @@ Version: 0.0.2.9000
 Author: person("Adam", "Celejewski", email = "a.celejewski@gmail.com",
     role = c("aut", "cre"))
 Maintainer: Adam Celejewski <a.celejewski@gmail.com>
-Description: Behavioual output can be groupedin to descrete units of activity,
-  or episodes. The episoder package provides funtions
-  for grouping time-stamped events according to inter-event inteverals. The 
-  package was created for analyzing large volumes of lickometer and feeding data
-  in mind but may be usefull for other biological or non-bilogical data.
+Description: Behavioual output can be grouped in to descrete units of activity,
+  or episodes. The episoder package provides funtions  for grouping time-stamped 
+  events according to inter-event inteverals. The package was created with 
+  analyzing large volumes of lickometer and feeder data in mind.
 License: GPL-3
 LazyData: TRUE
 Imports:

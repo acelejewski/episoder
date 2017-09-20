@@ -1,5 +1,5 @@
 ---
-title: "identifying episodes episoder"
+title: "Working with episodes data with episoder"
 author: "Adam Celejewski"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -9,29 +9,50 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+##Introdcution
+Behavioural data, such feeding or drinking recordings, can be broken down into discrete units of activity, or episodes. A common starting point for the analysis of episode data involves the examination of the inter-event interval information.
 
-Behavioural data such feeding or drinking can be broken down into discrete units of activity, or episodes. A common starting point for the analysis of episode data involves the examination of the inter-event interval information.
-
-The episoder package provides several functions for to aid in the extraction of relevant episode information form time-series event datasets according a specified inter-event interval of occurrence and/or the number of events per episodes. The the output of these functions can than be subjected to further analysis.
-
-
-## Vignette Info
-
-Note that this example useses the tibble an extension of the datafame , (tbl_df class;  see https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html), but tradtional data frames are also accepted. 
+The episoder package provides several functions to aid in the extraction of relevant episode information form time-series event data sets according a specified inter-event interval of occurrence. The output of these functions can than be subjected to further analysis.
 
 
+## Package Info
 
-## Data input
+Episoder functions are built with both, functions from the [dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)
+ package  as well as their base R equivalents. Episoder functions that do not utilize dplyr are denoted by the `_base` suffix.
 
-The funtions require data to organzied in long-format format as illustrated in data file example. This data contains Lickometer recordings (recordings of invidual licks) from 16 rats drinking sucrsoe solutions in two spereate treatment conditons. Two pices of information are requiured. A column of event times likcs_df time,  and column in this case of the example at a 20ms sampling resolution, the invidual level of analsys such as licksdf subject and licksdf$esession. Any number of columns providing can be inclueded  that will berequired for further analays of the data. 
+The dplyr-based functions can be applied across groups and  accept grouping variables such as subject ID or session ID. This functionality was implemented with `dplyr::group_by`   rather than with base R alternatives such as `base::tapply` as the dplyr implementation is significantly faster for larger data sets.
+
+Although this example uses tibble class objects in place of the data fame, (see [tibbles](https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html)), traditional data frames are also accepted. 
 
 
+## Data Format
 
-##Identifying 
-```{r, 'event time'}
-data("lickometer")
+The episoder package requires data to be organized in long-format format as illustrated in the included data file `lickometer`.
 
+```{r, 'data format'}
+lickometer
 ```
+
+This data contains lickometer recordings (recordings of individual licks) from 16 rats drinking sucrose solutions in two separate treatment conditions (see `?lickometer` for further details). Two pieces of information must be provided. A column of event times, in this case of the example at a 20ms sampling resolution, and one more grouping variables such as subject ID, session ID, etc.
+
+
+
+##Extracting episode 
+Episoder functions are but around two core functions `episdode_summarize` and `epsode_label`
+
+
+episode_label demarcates and arranges episdoes accoridng to a speici
+the lenght of the the. This data be used to for further sumiraiztion, or to fit mdoels
+
+episode_summaraize provides a summary of according to the specified number of events per episode and proiveds a summary of episode paramters including events per episode 
+
+```{r, episode lable}
+plot(1:10)
+plot(10:1)
+```
+
+
+
 
 ## Figures
 

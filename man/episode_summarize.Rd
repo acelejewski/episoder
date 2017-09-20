@@ -7,7 +7,7 @@
 episode_summarize(data, group, IEI, EPE, time = "Time", intervals)
 }
 \arguments{
-\item{data}{A data frame containing event and inter-event interval times along with optional
+\item{data}{A data frame containing event and inter-event interval times and with optional
 descriptive information.}
 
 \item{group}{A character vector containing the name(s) of one or more grouping factor combinations.
@@ -17,10 +17,10 @@ e.g.  \code{c("Subject", "Session")}.}
 
 \item{EPE}{A minimum Events Per Episode criterion value.}
 
-\item{time}{The name of the event time vector (as a characther string).}
+\item{time}{The name of the event time vector (as a character string).}
 
-\item{intervals}{The name of the event time vector (as a characther string). If argument is not
-included, intervals will be calulated from event time vector}
+\item{intervals}{The name of the event time vector (as a character string). If argument is not
+included, intervals will be calculated from event time vector.}
 }
 \value{
 A data frame (tbl_data class; see
@@ -31,16 +31,16 @@ consisting of input data and 4 columns of episode information:
 the IEI criterion.
 \item Episode_Events: An integer vector containing to the number of events within episode.
 \item Within_Episode_Order: An integer vector containing the order of events within each episode.
-\item Episode_Order: An integer vector containing the order of episodes within each factor combintation
+\item Episode_Order: An integer vector containing the order of episodes within each factor combination
 }
 }
 \description{
-Generate a summary of episode paramters from event time data according
+Generate a summary of episode parameters from event time data according
 to minimum inter-event interval duration and minimum number of events per episode criteria.
 }
 \examples{
 data(lickometer)
-interval_data <- event_intervals(lickometer, group = c("Subject”, “Session"), time = "Time")
+interval_data <- event_intervals(lickometer, group = c("Subject", "Session"), time = "Time")
 episode_label(interval_data, IEI = 12, , intervals = "Inter_Event_Intervals", tag = "Episode")
 }
 \seealso{

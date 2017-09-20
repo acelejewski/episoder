@@ -3,13 +3,16 @@
 \docType{data}
 \name{lickometer}
 \alias{lickometer}
-\title{Lickometer data for 8 rats.}
+\title{Lickometer data for 16 rats.}
 \format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1278038 rows and 6 columns.}
 \usage{
 lickometer
 }
 \description{
-Lickometer data collected from 8 rats over 2 session in 2 treatment condtions.
+Lickometer data collected from 16 rats over 2 session in 2 treatment condtions drinking a
+4 percent sucrose solution. Licks were recroded at a 20 ms sampling resoluion.
+ Rats were single housed on 12 houron -- 12 hour off light cycle with lights out
+ at the start of each session. Each session is 24 hours in duration.
 }
 \details{
 \describe{

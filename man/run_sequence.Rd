@@ -10,7 +10,7 @@ run_sequence(x)
 \item{x}{A vector containing runs of equal values.}
 }
 \value{
-A vector, equal in length to x, consiting of intergers incrementing for each run
+A vector, equal in length to x, consisting of integers incrementing for each run
 of equal values in x.
 }
 \description{

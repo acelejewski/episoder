@@ -2,8 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{event_intervals}
 \alias{event_intervals}
-\title{Transform a vector of event times to inter-event intervals grouped by a factor, or combination of factors.
-The final inter-event interval value at each factor level is NA padded.}
+\title{Calculate inter-event intervals}
 \usage{
 event_intervals(data, group, time = "Time")
 }
@@ -11,7 +10,7 @@ event_intervals(data, group, time = "Time")
 \item{data}{A data frame containing event times along with optional descriptive information.}
 
 \item{group}{A character vector containing the name(s) of one or more grouping factor combinations.
-e.g.  \code{c(“Subject”, “Session”)}.}
+e.g. \code{c("Subject", "Session")}}
 
 \item{time}{The name of the event time vector (as a characther string).}
 }

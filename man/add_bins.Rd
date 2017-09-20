@@ -8,16 +8,16 @@ add_bins(data, time, samples_per_session, samples_per_bin, bin_labels,
   bin_name = "Bins")
 }
 \arguments{
-\item{data}{A data frame containing a vector of event-times along plus optional descriptive information.}
+\item{data}{A data frame containing a vector of event-times along and optional descriptive information.}
 
-\item{time}{The name of the event-time vector (as a character string).}
+\item{time}{The name of the event-time vector.}
 
-\item{samples_per_session}{The total number of samples, or maximum time unit number of a session.}
+\item{samples_per_session}{The total number of samples, or highest possible time unit of a session.}
 
 \item{samples_per_bin}{The number of samples, or time units per bin. Must be a dividend of
 samples_per_session.}
 
-\item{bin_labels}{A vector containing bin labels. Length of the vector must corrospond
+\item{bin_labels}{A vector containing bin labels. Length of the vector must correspond
 to the number of bins. If missing, bin labels are added automatically (0:number of bins).}
 
 \item{bin_name}{Name of binning vector. Default name is "Bins"}
